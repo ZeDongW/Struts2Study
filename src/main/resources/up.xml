@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+        <package name="ud" extends="struts-default">
+            <action name="ud_*" class="cn.zedongw.mystruts.upanddown.UAD" method="{1}">
+                <result name="success">/ud/success.jsp</result>
+                <!-- 配置错误视图 -->
+                <result name="input">/ud/error.jsp</result>
+                <!-- 列表展示 -->
+                <result name="list">/ud/list.jsp</result>
+            </action>
+            <action name="down" class="cn.zedongw.mystruts.upanddown.UAD" method="down">
+                <!-- 下载操作 -->
+                <result name="download" type="stream">
+
+                    <!-- 运行下载的文件的类型:指定为所有的二进制文件类型 -->
+                    <param name="contentType">application/octet-stream</param>
+
+                    <!-- 对应的是Action中属性： 返回流的属性【其实就是getAttrInputStream()】 -->
+                    <param name="inputName">attrInputStream</param>
+
+                    <!-- 下载头，包括：浏览器显示的文件名 -->
+                    <param name="contentDisposition">attachment;filename=${downFileName}</param>
+
+                    <!-- 缓冲区大小设置 -->
+                    <param name="bufferSize">1024</param>
+                </result>
+            </action>
+        </package>
+</struts>
